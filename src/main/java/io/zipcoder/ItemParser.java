@@ -50,36 +50,30 @@ public class ItemParser {
         return matchExp.find();
     }
 
-
-    public Item parseStringIntoItem(String rawItem) throws ItemParseException{
-
-        Pattern patName = Pattern.compile("(n..e:\\w+)", Pattern.CASE_INSENSITIVE);
-        Pattern patType = Pattern.compile("t..e:f..d([;|@|%|!|*|^])", Pattern.CASE_INSENSITIVE);
-        Pattern patPrice = Pattern.compile("p...e:\\d...", Pattern.CASE_INSENSITIVE);
-        Pattern patExp = Pattern.compile("e........n:\\d.......6", Pattern.CASE_INSENSITIVE);
-       // Pattern patSplit = Pattern.compile(":");
-
-        Matcher matchName = patName.matcher(rawItem);
-        Matcher matchType = patType.matcher(rawItem);
-        Matcher matchPrice = patPrice.matcher(rawItem);
-        Matcher matchExp = patExp.matcher(rawItem);
-
-//        while(matchName.find()){
-//            try{
-//                String name = matchName.group(0);
-//                String[] keyValue = patSplit.split(name);
-//                String nameValue = keyValue[1];
-//
-//            }
-//            catch (ItemParseException e){
-//                count++;
-//
-//            }
-//            return new Item(name,Double.parseDouble(price),type, exp);
-//        }
-       return null;
-
+    public String getStringValuePair(String rawItem){
+        ArrayList<String> tofind = findKeyValuePairsInRawItemData(rawItem);
+        String toReturn = tofind.get(0).toLowerCase();
+        return toReturn;
     }
+
+    public String getStringValueandItem(String rawItem){
+        ArrayList<String> name = new ArrayList<String>();
+        if(patternMatcherName(rawItem)){
+            ArrayList<String>keyValue =findKeyValuePairsInRawItemData(rawItem);
+            name = splitStringWithRegexPattern(":", keyValue.get(0));
+        }
+              return name.get(1).toLowerCase();
+    }
+
+
+
+//    public Item parseStringIntoItem(String rawItem) throws ItemParseException{
+//
+//
+//
+//        return new Item(name, Double.parseDouble(price), type, expiration);
+//
+//    }
 
     private String compareMatches(Pattern patern, String keyField) {
 
@@ -87,10 +81,6 @@ public class ItemParser {
         return null;
 
     }
-
-//    private String toString(Matcher theName) {
-//        return "this is a test";
-//    }
 
     public ArrayList<String> findKeyValuePairsInRawItemData(String rawItem){
         String stringPattern = "[;|^|!|@|%|*]";
