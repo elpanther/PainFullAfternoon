@@ -34,6 +34,7 @@ public class ItemParserTest {
         assertEquals(expectedArraySize, actualArraySize);
     }
 
+
     @Test
     public void parseStringIntoItemTest() throws ItemParseException{
         Item expected = new Item("milk", 3.23, "food","1/25/2016");
@@ -59,4 +60,83 @@ public class ItemParserTest {
         Integer actual = itemParser.findKeyValuePairsInRawItemData(rawSingleItemIrregularSeperatorSample).size();
         assertEquals(expected, actual);
     }
+
+///////////////   Test of the methods I created /////////////////////
+
+    private String nothing = " ";
+
+    ///  True - False
+    @Test
+    public void patternMatcherNameTest(){
+        boolean expected = true;
+        //Then
+        boolean actual = itemParser.patternMatcherName(rawSingleItem);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+    @Test
+    public void patternMatcherPriceTest(){
+        boolean expected = true;
+        //Then
+        boolean actual = itemParser.patternMatcherPrice(rawSingleItem);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void patternMatcherTypeTrue(){
+        boolean expected = true;
+        //Then
+        boolean actual = itemParser.patternMatcherType(rawSingleItem);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void patternMatcherExpTrue(){
+        boolean expected = true;
+        //Then
+        boolean actual = itemParser.patternMatcherType(rawSingleItem);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void patternMatcherNameTestFalse(){
+        boolean expected = false;
+        //Then
+        boolean actual = itemParser.patternMatcherName(nothing);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+    @Test
+    public void patternMatcherPriceFalse(){
+        boolean expected = false;
+        //Then
+        boolean actual = itemParser.patternMatcherPrice(nothing);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void patternMatcherTypeFalse(){
+        boolean expected = false;
+        //Then
+        boolean actual = itemParser.patternMatcherType(nothing);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void patternMatcherExpFalse(){
+        boolean expected = false;
+        //Then
+        boolean actual = itemParser.patternMatcherType(nothing);
+        //When
+        Assert.assertEquals(expected, actual);
+    }
+
+    
+
+
 }
